@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/config';
-import Login, { Register, UserProfile } from './components/Auth/Login';
+import { Login, Register, UserProfile } from './components/Auth';
 import CategorySelector from './components/VocabularyManager/CategorySelector';
 import MatchingExercise from './components/Exercises/MatchingExercise';
 import dataService from './services/dataService';
