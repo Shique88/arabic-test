@@ -1,5 +1,5 @@
 // src/components/Auth/Login.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import '../../styles/Auth.css';
@@ -59,6 +59,8 @@ const Login = ({ onSuccess, onSwitchToRegister }) => {
       setError(errorMessage);
     }
   };
+
+  export default Login;
 
   return (
     <div className="auth-form-container">
