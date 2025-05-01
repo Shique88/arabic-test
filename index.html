@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אפליקציה ללימוד אוצר מילים בערבית</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <!-- SheetJS (xlsx) for Excel parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>לימוד אוצר מילים בערבית</h1>
+            <div id="user-status">
+                <div id="not-logged-in">
+                    <button id="login-btn">התחברות</button>
+                    <button id="register-btn">הרשמה</button>
+                </div>
+                <div id="logged-in" style="display: none;">
+                    <span id="user-email"></span>
+                    <button id="logout-btn">התנתקות</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Authentication Modals -->
+        <div id="login-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>התחברות</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">אימייל:</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">סיסמה:</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit">התחבר</button>
+                    <p><a href="#" id="forgot-password">שכחתי סיסמה</a></p>
+                </form>
+            </div>
+        </div>
+
+        <div id="register-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>הרשמה</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-email">אימייל:</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">סיסמה:</label>
+                        <input type="password" id="register-password" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">אימות סיסמה:</label>
+                        <input type="password" id="register-confirm-password" required minlength="6">
+                    </div>
+                    <button type="submit">הרשם</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="forgot-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>איפוס סיסמה</h2>
+                <form id="forgot-form">
+                    <div class="form-group">
+                        <label for="forgot-email">אימייל:</label>
+                        <input type="email" id="forgot-email" required>
+                    </div>
+                    <button type="submit">שלח מייל לאיפוס סיסמה</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <div id="loading-screen">
+                <p>טוען את המילון...</p>
+                <div class="loader"></div>
+            </div>
+
+            <div id="category-selection" style="display: none;">
+                <h2>בחר קטגוריה:</h2>
+                <div id="categories" class="categories-grid"></div>
+            </div>
+
+            <div id="exercise-screen" style="display: none;">
+                <div class="exercise-header">
+                    <h2 id="category-title"></h2>
+                    <div class="exercise-stats">
+                        <span id="progress-text">0/6</span>
+                        <div id="timer">00:00</div>
+                    </div>
+                </div>
+
+                <div id="exercise-container">
+                    <div id="arabic-words" class="word-column"></div>
+                    <div id="hebrew-words" class="word-column"></div>
+                </div>
+
+                <div class="exercise-controls">
+                    <button id="check-btn" disabled>בדוק</button>
+                    <button id="next-btn" style="display: none;">תרגיל הבא</button>
+                    <button id="back-btn">חזור לקטגוריות</button>
+                </div>
+            </div>
+
+            <div id="results-screen" style="display: none;">
+                <h2>סיימת את התרגיל!</h2>
+                <div id="exercise-summary">
+                    <p>זמן: <span id="time-taken"></span></p>
+                    <p>תשובות נכונות: <span id="correct-answers"></span>/6</p>
+                </div>
+                <button id="new-exercise-btn">תרגיל חדש</button>
+                <button id="back-to-categories-btn">חזור לקטגוריות</button>
+            </div>
+
+            <div id="progress-screen" style="display: none;">
+                <h2>התקדמות</h2>
+                <div id="progress-stats">
+                    <!-- Progress statistics will be inserted here -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <nav>
+                <button id="nav-exercise" class="nav-btn active">תרגול</button>
+                <button id="nav-progress" class="nav-btn">התקדמות</button>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="firebase/firebase-config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/exercises.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
