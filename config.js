@@ -1,10 +1,10 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAH93WwphTZnCKhfmZv0EXz2ZC2LMJRfCU",
-  authDomain: "arabic-vocabulary-app.firebaseapp.com",
-  projectId: "arabic-vocabulary-app",
-  storageBucket: "arabic-vocabulary-app.firebasestorage.app",
-  messagingSenderId: "416598620126",
-  appId: "1:416598620126:web:ced53e36c34b9ed25bcf4f",
-  measurementId: "G-3YGS96ZS1F"
-};
+    apiKey: "AIzaSyBy-IH4O09676ijBZ3rT78Fd829Pa7fPRc",
+    authDomain: "arabic-test-62c4c.firebaseapp.com",
+    projectId: "arabic-test-62c4c",
+    storageBucket: "arabic-test-62c4c.firebasestorage.app",
+    messagingSenderId: "497421340802",
+    appId: "1:497421340802:web:2deadb1d00af3d262da49b",
+    measurementId: "G-8SY2H0FSQL"
+  };
