@@ -147,3 +147,5 @@ const Register = ({ onSuccess, onSwitchToLogin }) => {
     </div>
   );
 };
+
+export default Register;
