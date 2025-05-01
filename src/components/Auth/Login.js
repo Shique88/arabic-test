@@ -59,8 +59,7 @@ const Login = ({ onSuccess, onSwitchToRegister }) => {
       setError(errorMessage);
     }
   };
-
-  export default Login;
+  
 
   return (
     <div className="auth-form-container">
@@ -113,3 +112,5 @@ const Login = ({ onSuccess, onSwitchToRegister }) => {
     </div>
   );
 };
+
+  export default Login;
