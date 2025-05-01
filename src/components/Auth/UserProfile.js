@@ -1,4 +1,5 @@
 // src/components/Auth/UserProfile.js
+import React, { useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebase/config';
 import dataService from '../../services/dataService';
@@ -150,5 +151,4 @@ const UserProfile = ({ user, onLogout }) => {
   );
 };
 
-export default Login;
-export { Register, UserProfile };
+export default UserProfile;
