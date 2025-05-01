@@ -4,7 +4,7 @@ let categories = [];
 
 // GitHub repository information
 const githubRepo = 'arabic-test'; // Replace with your actual GitHub repository name
-const githubUser = 'your-username'; // Replace with your GitHub username
+const githubUser = 'Shique88'; // Replace with your GitHub username
 const excelFilePath = 'vocabulary.xlsx'; // Path to the Excel file in your repository
 
 // Function to fetch and parse the Excel file
