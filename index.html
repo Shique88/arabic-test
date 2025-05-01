@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Vocabulary Learning App</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>מילון אוצר מילים בערבית</h1>
+        </header>
+        
+        <div class="app-section">
+            <h2>נתונים</h2>
+            <div class="data-status">
+                <div id="status-indicator" class="status-indicator loading"></div>
+                <div id="data-info">טוען נתונים...</div>
+            </div>
+            <div id="sheets-info" class="sheets-info"></div>
+        </div>
+        
+        <div class="app-section">
+            <h2>קטגוריות</h2>
+            <div class="category-selector" id="categories">
+                <!-- Categories will be populated here -->
+            </div>
+        </div>
+
+        <!-- Learning Mode Selection -->
+        <div class="app-section">
+            <h2>מצב לימוד</h2>
+            <div id="mode-buttons" class="mode-buttons">
+                <button id="flashcard-mode-button" class="mode-button active">כרטיסיות</button>
+                <button id="test-mode-button" class="mode-button">התאמת מילים</button>
+            </div>
+        </div>
+        
+        <!-- Flashcard Mode -->
+        <div class="app-section" id="flashcard-container">
+            <h2>למידה באמצעות כרטיסיות</h2>
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div id="word">טוען נתונים...</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div id="translation"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="prev" disabled>הקודם</button>
+                <button id="flip">הפוך כרטיסייה</button>
+                <button id="next" disabled>הבא</button>
+            </div>
+            
+            <!-- SRS Feedback -->
+            <div id="word-srs-status" class="word-srs-status">
+                <span class="status-text">חדש</span>
+                <span class="review-text">יש לסקור היום</span>
+            </div>
+            <div id="srs-feedback-container" class="srs-feedback-container">
+                <div class="srs-feedback">
+                    <button id="easy-button" class="srs-feedback-button easy">קל</button>
+                    <button id="hard-button" class="srs-feedback-button hard">קשה</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Test Mode -->
+        <div class="app-section test-container" id="test-container">
+            <h2>התאמת מילים</h2>
+            <div class="matching-game" id="matching-game">
+                <div class="matching-column" id="arabic-column">
+                    <!-- Arabic words will go here -->
+                </div>
+                <div class="matching-column" id="hebrew-column">
+                    <!-- Hebrew translations will go here -->
+                </div>
+            </div>
+            <div class="test-feedback" id="test-feedback"></div>
+        </div>
+        
+        <div class="app-section">
+            <h2>ההתקדמות שלך</h2>
+            <div class="progress-container">
+                <progress id="progress" value="0" max="100"></progress>
+                <div id="progress-text">0%</div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div>מילים שנלמדו</div>
+                    <div id="learned-count">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>מילים שנותרו</div>
+                    <div id="remaining-count">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>סך הכל מילים</div>
+                    <div id="total-count">0</div>
+                </div>
+            </div>
+            
+            <div id="srs-stats-container" class="srs-stats-container">
+                <div class="srs-stats">
+                    <div class="stat-item">
+                        <div>כרטיסיות לסקירה היום</div>
+                        <div id="due-count">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>מילים חדשות</div>
+                        <div id="new-count">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div>מילים מוכרות</div>
+                        <div id="mastered-count">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-section" id="auth-container">
+            <div class="user-header">
+                <h2>המשתמש שלך</h2>
+                <div class="user-info">
+                    <span>שלום, </span>
+                    <span id="user-name">אורח</span>
+                    <div class="auth-buttons">
+                        <button id="login-button" class="auth-button guest-only">התחבר</button>
+                        <button id="register-button" class="auth-button guest-only">הרשם</button>
+                        <button id="logout-button" class="auth-button user-only">התנתק</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="user-only progress-sync">
+                <p>ההתקדמות שלך נשמרת אוטומטית</p>
+            </div>
+            
+            <div class="guest-only anonymous-warning">
+                <p>אתה גולש כאורח. ההתקדמות שלך לא תישמר אם תצא מהעמוד.</p>
+                <button id="guest-login-button" class="primary-btn">התחבר כדי לשמור את ההתקדמות</button>
+            </div>
+            
+            <!-- Reset Progress Button -->
+            <div class="user-only">
+                <button id="reset-progress-btn" class="reset-progress-btn">איפוס ההתקדמות שלי</button>
+                <div id="confirm-reset-container" class="confirm-reset-container">
+                    <p>האם אתה בטוח שברצונך לאפס את כל ההתקדמות שלך? פעולה זו לא ניתנת לביטול.</p>
+                    <div class="confirm-reset-buttons">
+                        <button id="confirm-reset-yes" class="confirm-btn confirm-yes">כן, אפס את ההתקדמות</button>
+                        <button id="confirm-reset-no" class="confirm-btn confirm-no">ביטול</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="hideAuthModal()">&times;</span>
+            
+            <div class="auth-tabs">
+                <div id="login-tab" class="auth-tab active" onclick="switchAuthForm('login')">התחברות</div>
+                <div id="register-tab" class="auth-tab" onclick="switchAuthForm('register')">הרשמה</div>
+            </div>
+            
+            <div id="auth-status" class="auth-status"></div>
+            
+            <div id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">אימייל</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">סיסמה</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <button id="submit-login" class="primary-btn">התחבר</button>
+            </div>
+            
+            <div id="register-form" class="auth-form" style="display: none;">
+                <div class="form-group">
+                    <label for="register-email">אימייל</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">סיסמה</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password-confirm">אימות סיסמה</label>
+                    <input type="password" id="register-password-confirm" required>
+                </div>
+                <button id="submit-register" class="primary-btn">הרשם</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    
+    <!-- External libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- App scripts -->
+    <script src="config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/srs.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/flashcard.js"></script>
+    <script src="js/test.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
